@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.28318322, g: 0.2987838, b: 0.31857204, a: 1}
+  m_IndirectSpecularColor: {r: 0.28308856, g: 0.298692, b: 0.31849897, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2734,6 +2734,11 @@ MonoBehaviour:
   fallingBurgers: {fileID: 1054399661}
   temporizador: {fileID: 933172170}
   anim: {fileID: 864389535}
+  jumpSound: {fileID: 8300000, guid: 4d7c0e48ee758f144bcf70a5b69146fd, type: 3}
+  burgerSound: {fileID: 8300000, guid: edb9b349c509be248bf441a0c9123ec9, type: 3}
+  hurtSound: {fileID: 8300000, guid: 5bcca1ac688cf314293324b5fae10741, type: 3}
+  lixoSound: {fileID: 8300000, guid: 25eabb20484a9124599ae6fd4d8cd0bb, type: 3}
+  ganharvidaSound: {fileID: 8300000, guid: c2fafd50f43c227478279f7a0a4e512c, type: 3}
   movementSpeed: 20
   runSpeedMultiplier: 1.5
   jumpForce: 15
@@ -2828,7 +2833,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ef9b83cb0a0c0674d994f490b6aedce0, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -4737,13 +4742,13 @@ PrefabInstance:
       addedObject: {fileID: 864389533}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 864389536}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 864389535}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 864389531}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 864389536}
   m_SourcePrefab: {fileID: 100100000, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
 --- !u!1 &1325069880
 GameObject:
