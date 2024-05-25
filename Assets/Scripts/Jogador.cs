@@ -162,7 +162,19 @@ void Update()
             ganharVidas();
             PlayGanharVidaSoundSound();
         }
+        else if (collision.gameObject.CompareTag("Velocidade"))
+        {
+            StartCoroutine(IncreaseSpeedForDuration(2f, 10f));
+        }
     }
+
+
+private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
+{
+    movementSpeed += amount;
+    yield return new WaitForSeconds(duration);
+    movementSpeed -= amount;
+}
 
 
     // Triggers

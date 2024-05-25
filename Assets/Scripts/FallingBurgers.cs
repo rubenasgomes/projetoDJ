@@ -9,13 +9,16 @@ public class FallingBurgers : MonoBehaviour
     public float spawnDelayBurgers = 3f;
     public float spawnDelaySpaceTrash = 3f;
     public float spawnDelayBatides = 3f;
+    public float spawnDelayVelocidade = 3f;
     public float fallingSpeedBurgers = 1f; // Velocidade dos hambúrgueres
     public float fallingSpeedSpaceTrash = 1f; // Velocidade do lixo espacial
     public float fallingSpeedBatides = 1f; // Velocidade dos "batides"
+    public float fallingSpeedVelocidade = 2f; // Velocidade dos "Velocidade"
     // Prefabs dos objetos
     public GameObject burgerPrefab;
     public GameObject spaceTrashPrefab;
     public GameObject batidesPrefab;
+    public GameObject VelocidadePrefab;
     public GameObject spawnArea;
     public GameObject shield;
     public GameObject entraceSwitch;
@@ -23,6 +26,7 @@ public class FallingBurgers : MonoBehaviour
     public int simultaneousBurgers = 1; // Nº de hambúrgueres a "spawnar" simultâneamente
     public int simultaneousSpaceTrash = 1; // Nº de lixo espacial a "spawnar" simultâneamente
     public int simultaneousBatides = 1;  // Nº de "batides" a "spawnar" simultâneamente
+    public int simultaneousVelocidade = 1;  // Nº de "batides" a "spawnar" simultâneamente
     public TextMeshProUGUI objectiveText;
     private int hamburgersCollected = 0; // Contador de hambúrgueres colecionados
     public int hamburgerTarget = 20; // Nº de hambúrgueres a serem apanhados
@@ -157,6 +161,34 @@ public class FallingBurgers : MonoBehaviour
         }
     }
 
+    // "Spawn" de "Velocidade"
+    public IEnumerator SpawnVelocidade()
+    {
+        yield return new WaitForSeconds(spawnDelayVelocidade);
+
+        while (true)
+        {
+            for (int i = 0; i < simultaneousVelocidade; i++)
+            {
+                float randomX = Random.Range(-spawnSize.x / 2f, spawnSize.x / 2f);
+                float randomZ = Random.Range(-spawnSize.z / 2f, spawnSize.z / 2f);
+
+                Vector3 spawnPosition = spawnArea.transform.position + new Vector3(randomX, 0f, randomZ);
+                GameObject newVelocidade = Instantiate(VelocidadePrefab, spawnPosition, Quaternion.identity);
+
+                Rigidbody rb = newVelocidade.GetComponent<Rigidbody>();
+                if (rb == null)
+                {
+                    rb = newVelocidade.AddComponent<Rigidbody>();
+                }
+
+                rb.velocity = Vector3.down * fallingSpeedVelocidade;
+            }
+
+            yield return new WaitForSeconds(spawnDelayVelocidade);
+        }
+    }
+
     // Fim de "nível"
     public void StopSpawn()
     {
@@ -170,6 +202,7 @@ public class FallingBurgers : MonoBehaviour
         GameObject[] burgers = GameObject.FindGameObjectsWithTag("Hamburger");
         GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
         GameObject[] batides = GameObject.FindGameObjectsWithTag("Batides");
+        GameObject[] Velocidades = GameObject.FindGameObjectsWithTag("Velocidadess");
 
         foreach (GameObject burger in burgers)
         {
@@ -185,21 +218,27 @@ public class FallingBurgers : MonoBehaviour
         {
             Destroy(batide);
         }
+        foreach (GameObject Velocidade in Velocidades)
+        {
+            Destroy(Velocidade);
+        }
     }
 
     // Método para mudar o rating do "spawn"
-    public void ChangeSpawnRates(float newBurgerSpawnDelay, float newSpaceTrashSpawnDelay, float newBatidesSpawnDelay)
+    public void ChangeSpawnRates(float newBurgerSpawnDelay, float newSpaceTrashSpawnDelay, float newBatidesSpawnDelay, float newDelayVelocidade)
     {
         spawnDelayBurgers = newBurgerSpawnDelay;
         spawnDelaySpaceTrash = newSpaceTrashSpawnDelay;
         spawnDelayBatides = newBatidesSpawnDelay;
+        spawnDelayVelocidade = newDelayVelocidade;
     }
 
     // Método para mudar os "spawns" simultâneos
-    public void ChangeSimultaneousSpawns(int newSimultaneousBurgers, int newSimultaneousSpaceTrash, int newSimultaneousBatides)
+    public void ChangeSimultaneousSpawns(int newSimultaneousBurgers, int newSimultaneousSpaceTrash, int newSimultaneousBatides, int newsimultaneousVelocidade)
     {
         simultaneousBurgers = newSimultaneousBurgers;
         simultaneousSpaceTrash = newSimultaneousSpaceTrash;
         simultaneousBatides = newSimultaneousBatides;
+        simultaneousVelocidade = newsimultaneousVelocidade;
     }
 }
