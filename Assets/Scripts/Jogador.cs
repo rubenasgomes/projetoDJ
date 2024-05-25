@@ -21,19 +21,35 @@ public class Jogador : MonoBehaviour
     private int lives = 3;
     public float movementSpeed = 20f;
     public float runSpeedMultiplier = 1.5f;
-    public float jumpForce = 20f;
+
+
+    // public float jumpForce = 20f;
+    [SerializeField] float jumpForce = 15f;
+
+
     private bool isRunning = false;
-    private bool isGrounded = true;
+
+    private Sensor_Player   groundSensor;
+
+    private bool isGrounded = false;
+    // private bool isGrounded = true;
     public Image[] lifeImages;
     public GameObject GameOver;
     public GameObject HUD;
     private bool canRotate = true;
     public GameObject PlatformShield; // "Escudo" da plataforma
     private bool canToggle = true;
+    [SerializeField] float gravityMultiplier = 2.5f; // Multiplicador da gravidade
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.mass = 2; 
+        rb.drag = 0; // Reduz a resistência ao movimento
+        rb.angularDrag = 0.10f; // Reduz a resistência à rotação
+
+        groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_Player>();
         atualizarVidas();
         GameOver.SetActive(false);
 
@@ -82,14 +98,26 @@ public class Jogador : MonoBehaviour
         }
     }
 
-    void Update()
+private void ApplyFallForce()
+{
+    if (!isGrounded)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
+        rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
     }
+}
+
+void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+    {
+        isGrounded = false;
+        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        groundSensor.Disable(0.2f);
+        PlayJumpSound();
+    }
+
+    ApplyFallForce();
+}
 
 
     private void OnCollisionStay(Collision collision)
