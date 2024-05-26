@@ -7,6 +7,10 @@ public class Jogador : MonoBehaviour
     public FallingBurgers fallingBurgers; // Script "FallingBurgers"
     public Temporizador temporizador; // Script "Temporizador"
     private Rigidbody rb;
+
+    public ParticleSystem speedParticles; // Reference to the particle system
+
+
     public Animator anim;
 
 
@@ -16,6 +20,7 @@ public class Jogador : MonoBehaviour
     [SerializeField] AudioClip  hurtSound; // AudioSource para o som do hurt
     [SerializeField] AudioClip  lixoSound; // AudioSource para o som para apanhar lixo
     [SerializeField] AudioClip  ganharvidaSound; // AudioSource ao ganhar vida
+    [SerializeField] AudioClip  VelocidadeSound; // AudioSource ao aumentar a velocidade
 
 
     private int lives = 3;
@@ -162,18 +167,39 @@ void Update()
             ganharVidas();
             PlayGanharVidaSoundSound();
         }
-        else if (collision.gameObject.CompareTag("Velocidade"))
+        else if (collision.gameObject.CompareTag("Velocidadess"))
         {
-            StartCoroutine(IncreaseSpeedForDuration(2f, 10f));
+            Destroy(collision.gameObject);
+            PlayVelocidadeSound();
+            StartCoroutine(IncreaseSpeedForDuration(4f, 10f));
+            ActivateSpeedParticles();
         }
     }
 
 
 private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
 {
-    movementSpeed += amount;
+  movementSpeed += amount;
+    if (speedParticles != null)
+    {
+        speedParticles.Play();
+    }
     yield return new WaitForSeconds(duration);
     movementSpeed -= amount;
+    if (speedParticles != null)
+    {
+        speedParticles.Stop();  movementSpeed += amount;
+    if (speedParticles != null)
+    {
+        speedParticles.Play();
+    }
+    yield return new WaitForSeconds(duration);
+    movementSpeed -= amount;
+    if (speedParticles != null)
+    {
+        speedParticles.Stop();
+    }
+    }
 }
 
 
@@ -264,5 +290,22 @@ private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
             audioSource.PlayOneShot(ganharvidaSound);
         }
     }
+
+    // funcão para o som powerup Velocidade
+    private void PlayVelocidadeSound()
+    {
+        if (VelocidadeSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(VelocidadeSound);
+        }
+    }
+
+    private void ActivateSpeedParticles()
+{
+    if (speedParticles != null)
+    {
+        speedParticles.Play();
+    }
+}
 
 }

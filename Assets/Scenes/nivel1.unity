@@ -2803,12 +2803,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallingBurgers: {fileID: 1054399661}
   temporizador: {fileID: 933172170}
+  speedParticles: {fileID: 940461333}
   anim: {fileID: 864389535}
   jumpSound: {fileID: 8300000, guid: 4d7c0e48ee758f144bcf70a5b69146fd, type: 3}
   burgerSound: {fileID: 8300000, guid: edb9b349c509be248bf441a0c9123ec9, type: 3}
   hurtSound: {fileID: 8300000, guid: 5bcca1ac688cf314293324b5fae10741, type: 3}
   lixoSound: {fileID: 8300000, guid: 25eabb20484a9124599ae6fd4d8cd0bb, type: 3}
   ganharvidaSound: {fileID: 8300000, guid: c2fafd50f43c227478279f7a0a4e512c, type: 3}
+  VelocidadeSound: {fileID: 8300000, guid: d774bdc5a89c51d42a6d5ca964538e2f, type: 3}
   movementSpeed: 20
   runSpeedMultiplier: 1.5
   jumpForce: 20
@@ -3175,6 +3177,16 @@ MonoBehaviour:
   currentMinutes: 0
   currentSeconds: 0
   timerRunning: 1
+--- !u!198 &940461333 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7596579017977736309, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+  m_PrefabInstance: {fileID: 1820980505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &940461335 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+  m_PrefabInstance: {fileID: 1820980505}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &961232673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3891,18 +3903,22 @@ MonoBehaviour:
   spawnDelayBurgers: 3
   spawnDelaySpaceTrash: 3
   spawnDelayBatides: 3
+  spawnDelayVelocidade: 3
   fallingSpeedBurgers: 3
-  fallingSpeedSpaceTrash: 6
+  fallingSpeedSpaceTrash: 3
   fallingSpeedBatides: 4
+  fallingSpeedVelocidade: 2
   burgerPrefab: {fileID: 5252746052631252355, guid: a0014d3ec18e8df41884dfe6a187bc3a, type: 3}
   spaceTrashPrefab: {fileID: 2704061412618312811, guid: 32bbd66ed3fb67e4788c1938082ffbdf, type: 3}
   batidesPrefab: {fileID: 3940794224564004530, guid: 1363d9ac966fea84ab059c21b3953e71, type: 3}
+  VelocidadePrefab: {fileID: 3940794224564004530, guid: d9ac01910dd7a924293cfad42f9832de, type: 3}
   spawnArea: {fileID: 1054399660}
   shield: {fileID: 2008768227}
   entraceSwitch: {fileID: 1181424694}
   simultaneousBurgers: 5
   simultaneousSpaceTrash: 3
   simultaneousBatides: 1
+  simultaneousVelocidade: 1
   objectiveText: {fileID: 1036665678}
   hamburgerTarget: 20
 --- !u!23 &1054399664
@@ -4019,18 +4035,22 @@ MonoBehaviour:
   spawnDelayBurgers: 3
   spawnDelaySpaceTrash: 3
   spawnDelayBatides: 3
+  spawnDelayVelocidade: 3
   fallingSpeedBurgers: 3
   fallingSpeedSpaceTrash: 6
   fallingSpeedBatides: 4
+  fallingSpeedVelocidade: 2
   burgerPrefab: {fileID: 5252746052631252355, guid: a0014d3ec18e8df41884dfe6a187bc3a, type: 3}
   spaceTrashPrefab: {fileID: 2704061412618312811, guid: 32bbd66ed3fb67e4788c1938082ffbdf, type: 3}
   batidesPrefab: {fileID: 3940794224564004530, guid: 1363d9ac966fea84ab059c21b3953e71, type: 3}
+  VelocidadePrefab: {fileID: 0}
   spawnArea: {fileID: 1076268437}
   shield: {fileID: 0}
   entraceSwitch: {fileID: 0}
   simultaneousBurgers: 5
   simultaneousSpaceTrash: 3
   simultaneousBatides: 1
+  simultaneousVelocidade: 1
   objectiveText: {fileID: 1036665678}
   hamburgerTarget: 20
 --- !u!23 &1076268440
@@ -4807,6 +4827,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
       insertIndex: -1
       addedObject: {fileID: 618008788}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 940461335}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38e502be45dd880409557938e8ab2e16, type: 3}
       insertIndex: -1
@@ -5895,6 +5918,99 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -32}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1820980505
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 864389534}
+    m_Modifications:
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -0.089999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -0.089999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.02040863
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757368708742169256, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596579017977736309, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: lengthInSec
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596579017977736309, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596579017977736309, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596579017977736309, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.94716984
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980091735602727223, guid: 10559326694476b43b28414552ed1b7c, type: 3}
+      propertyPath: m_Name
+      value: Particle System (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10559326694476b43b28414552ed1b7c, type: 3}
 --- !u!1 &1843107899
 GameObject:
   m_ObjectHideFlags: 0

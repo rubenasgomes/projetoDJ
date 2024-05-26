@@ -17,7 +17,7 @@ public class Plataforma : MonoBehaviour
         if (collision.gameObject.CompareTag("Hamburger"))
         {
             Destroy(collision.gameObject);
-            AudioSourceObjects.Play();
+            // AudioSourceObjects.Play();
             //EfeitoParticulasExplosao(collision.contacts[0].point);
         }
         else if (collision.gameObject.CompareTag("Trash"))
@@ -26,6 +26,10 @@ public class Plataforma : MonoBehaviour
             //AudioSourceObjects.Play();
         }
         else if (collision.gameObject.CompareTag("Batides"))
+        {
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Velocidadess"))
         {
             Destroy(collision.gameObject);
         }

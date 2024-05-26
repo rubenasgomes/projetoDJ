@@ -11,6 +11,7 @@ TagManager:
   - menuFinal
   - teste
   - InvisibleWall
+  - Velocidadess
   layers:
   - Default
   - TransparentFX

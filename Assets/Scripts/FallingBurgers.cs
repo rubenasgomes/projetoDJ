@@ -41,6 +41,7 @@ public class FallingBurgers : MonoBehaviour
         StartCoroutine(SpawnBurgers());
         StartCoroutine(SpawnSpaceTrash());
         StartCoroutine(SpawnBatides());
+        StartCoroutine(SpawnVelocidade());
         shield.SetActive(false);
         entraceSwitch.SetActive(false);
 
