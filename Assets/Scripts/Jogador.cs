@@ -21,9 +21,11 @@ public class Jogador : MonoBehaviour
     [SerializeField] AudioClip  lixoSound; // AudioSource para o som para apanhar lixo
     [SerializeField] AudioClip  ganharvidaSound; // AudioSource ao ganhar vida
     [SerializeField] AudioClip  VelocidadeSound; // AudioSource ao aumentar a velocidade
+    [SerializeField] AudioClip  CrescerSound; // AudioSource ao aumentar a Altura
 
 
     private int lives = 3;
+    private const int maxLives = 3; // Maximum number of lives
     public float movementSpeed = 20f;
     public float runSpeedMultiplier = 1.5f;
 
@@ -45,6 +47,7 @@ public class Jogador : MonoBehaviour
     public GameObject PlatformShield; // "Escudo" da plataforma
     private bool canToggle = true;
     [SerializeField] float gravityMultiplier = 2.5f; // Multiplicador da gravidade
+    private bool isPoweredUp = false; // Flag to indicate power-up state
 
     void Start()
     {
@@ -174,6 +177,13 @@ void Update()
             StartCoroutine(IncreaseSpeedForDuration(4f, 10f));
             ActivateSpeedParticles();
         }
+        else if (collision.gameObject.CompareTag("CrescerM"))
+        {
+            Destroy(collision.gameObject);
+            PlayCrescerSound();
+            StartCoroutine(ChangeScaleForDuration(new Vector3(2f, 2f, 2f), 10f)); // Change scale for 10 seconds
+            ActivateSpeedParticles();
+        }
     }
 
 
@@ -202,6 +212,15 @@ private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
     }
 }
 
+    private IEnumerator ChangeScaleForDuration(Vector3 newScale, float duration)
+    {
+        Vector3 originalScale = new Vector3(0.8f, 0.8f, 0.8f);
+        isPoweredUp = true; // Set power-up state to true
+        transform.localScale = newScale;
+        yield return new WaitForSeconds(duration);
+        transform.localScale = originalScale;
+        isPoweredUp = false; // Reset power-up state
+    }
 
     // Triggers
     private void OnTriggerEnter(Collider other)
@@ -215,6 +234,8 @@ private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
 
     private void perderVidas()
     {
+        if (!isPoweredUp) // Check if the player is not powered up
+        {
         lives--;
         if (lives <= 0)
         {
@@ -232,7 +253,9 @@ private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
         {
             atualizarVidas();
         }
+        }
     }
+
 
     private void atualizarVidas()
     {
@@ -244,8 +267,11 @@ private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
 
     private void ganharVidas()
     {
-        lives++;
-        atualizarVidas();
+        if (lives < maxLives) // Ensure lives do not exceed the maximum
+        {
+            lives++;
+            atualizarVidas();
+        }
     }
 
 // FUNCÕES DOS SONS 
@@ -297,6 +323,15 @@ private IEnumerator IncreaseSpeedForDuration(float amount, float duration)
         if (VelocidadeSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(VelocidadeSound);
+        }
+    }
+
+    // funcão para o som powerup Crescer
+    private void PlayCrescerSound()
+    {
+        if (CrescerSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(CrescerSound);
         }
     }
 

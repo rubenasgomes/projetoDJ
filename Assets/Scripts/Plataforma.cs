@@ -33,6 +33,10 @@ public class Plataforma : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("CrescerM"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
     // Particulas (Quando os objectos cairem na plataforma, eles emitirão uma "animação" quando desaparecem)
     private void EfeitoParticulasExplosao(Vector3 position)

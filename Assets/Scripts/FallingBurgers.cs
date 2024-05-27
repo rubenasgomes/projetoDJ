@@ -10,15 +10,18 @@ public class FallingBurgers : MonoBehaviour
     public float spawnDelaySpaceTrash = 3f;
     public float spawnDelayBatides = 3f;
     public float spawnDelayVelocidade = 3f;
+    public float spawnDelayCrescer = 3f;
     public float fallingSpeedBurgers = 1f; // Velocidade dos hambúrgueres
     public float fallingSpeedSpaceTrash = 1f; // Velocidade do lixo espacial
     public float fallingSpeedBatides = 1f; // Velocidade dos "batides"
     public float fallingSpeedVelocidade = 2f; // Velocidade dos "Velocidade"
+    public float fallingSpeedCrescer= 2f; // Velocidade dos "Crescer"
     // Prefabs dos objetos
     public GameObject burgerPrefab;
     public GameObject spaceTrashPrefab;
     public GameObject batidesPrefab;
     public GameObject VelocidadePrefab;
+    public GameObject CrescerPrefab;
     public GameObject spawnArea;
     public GameObject shield;
     public GameObject entraceSwitch;
@@ -26,7 +29,8 @@ public class FallingBurgers : MonoBehaviour
     public int simultaneousBurgers = 1; // Nº de hambúrgueres a "spawnar" simultâneamente
     public int simultaneousSpaceTrash = 1; // Nº de lixo espacial a "spawnar" simultâneamente
     public int simultaneousBatides = 1;  // Nº de "batides" a "spawnar" simultâneamente
-    public int simultaneousVelocidade = 1;  // Nº de "batides" a "spawnar" simultâneamente
+    public int simultaneousVelocidade = 1;  // Nº de "Velocidade" a "spawnar" simultâneamente
+    public int simultaneousCrescer = 1;  // Nº de "Crescer" a "spawnar" simultâneamente
     public TextMeshProUGUI objectiveText;
     private int hamburgersCollected = 0; // Contador de hambúrgueres colecionados
     public int hamburgerTarget = 20; // Nº de hambúrgueres a serem apanhados
@@ -42,6 +46,7 @@ public class FallingBurgers : MonoBehaviour
         StartCoroutine(SpawnSpaceTrash());
         StartCoroutine(SpawnBatides());
         StartCoroutine(SpawnVelocidade());
+        StartCoroutine(SpawnCrescer());
         shield.SetActive(false);
         entraceSwitch.SetActive(false);
 
@@ -189,6 +194,32 @@ public class FallingBurgers : MonoBehaviour
             yield return new WaitForSeconds(spawnDelayVelocidade);
         }
     }
+    public IEnumerator SpawnCrescer()
+    {
+        yield return new WaitForSeconds(spawnDelayCrescer);
+
+        while (true)
+        {
+            for (int i = 0; i < simultaneousCrescer; i++)
+            {
+                float randomX = Random.Range(-spawnSize.x / 2f, spawnSize.x / 2f);
+                float randomZ = Random.Range(-spawnSize.z / 2f, spawnSize.z / 2f);
+
+                Vector3 spawnPosition = spawnArea.transform.position + new Vector3(randomX, 0f, randomZ);
+                GameObject newCrescer = Instantiate(CrescerPrefab, spawnPosition, Quaternion.identity);
+
+                Rigidbody rb = newCrescer.GetComponent<Rigidbody>();
+                if (rb == null)
+                {
+                    rb = newCrescer.AddComponent<Rigidbody>();
+                }
+
+                rb.velocity = Vector3.down * fallingSpeedCrescer;
+            }
+
+            yield return new WaitForSeconds(spawnDelayCrescer);
+        }
+    }
 
     // Fim de "nível"
     public void StopSpawn()
@@ -204,6 +235,7 @@ public class FallingBurgers : MonoBehaviour
         GameObject[] trash = GameObject.FindGameObjectsWithTag("Trash");
         GameObject[] batides = GameObject.FindGameObjectsWithTag("Batides");
         GameObject[] Velocidades = GameObject.FindGameObjectsWithTag("Velocidadess");
+        GameObject[] Cresceres = GameObject.FindGameObjectsWithTag("CrescerM");
 
         foreach (GameObject burger in burgers)
         {
@@ -223,23 +255,29 @@ public class FallingBurgers : MonoBehaviour
         {
             Destroy(Velocidade);
         }
+        foreach (GameObject Crescer in Cresceres)
+        {
+            Destroy(Crescer);
+        }
     }
 
     // Método para mudar o rating do "spawn"
-    public void ChangeSpawnRates(float newBurgerSpawnDelay, float newSpaceTrashSpawnDelay, float newBatidesSpawnDelay, float newDelayVelocidade)
+    public void ChangeSpawnRates(float newBurgerSpawnDelay, float newSpaceTrashSpawnDelay, float newBatidesSpawnDelay, float newDelayVelocidade,  float newDelayCrescer)
     {
         spawnDelayBurgers = newBurgerSpawnDelay;
         spawnDelaySpaceTrash = newSpaceTrashSpawnDelay;
         spawnDelayBatides = newBatidesSpawnDelay;
         spawnDelayVelocidade = newDelayVelocidade;
+        spawnDelayCrescer = newDelayCrescer;
     }
 
     // Método para mudar os "spawns" simultâneos
-    public void ChangeSimultaneousSpawns(int newSimultaneousBurgers, int newSimultaneousSpaceTrash, int newSimultaneousBatides, int newsimultaneousVelocidade)
+    public void ChangeSimultaneousSpawns(int newSimultaneousBurgers, int newSimultaneousSpaceTrash, int newSimultaneousBatides, int newsimultaneousVelocidade,  int newsimultaneousCrescer)
     {
         simultaneousBurgers = newSimultaneousBurgers;
         simultaneousSpaceTrash = newSimultaneousSpaceTrash;
         simultaneousBatides = newSimultaneousBatides;
         simultaneousVelocidade = newsimultaneousVelocidade;
+        simultaneousCrescer = newsimultaneousCrescer;
     }
 }

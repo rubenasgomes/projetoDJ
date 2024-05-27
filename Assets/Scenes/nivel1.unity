@@ -2811,7 +2811,9 @@ MonoBehaviour:
   lixoSound: {fileID: 8300000, guid: 25eabb20484a9124599ae6fd4d8cd0bb, type: 3}
   ganharvidaSound: {fileID: 8300000, guid: c2fafd50f43c227478279f7a0a4e512c, type: 3}
   VelocidadeSound: {fileID: 8300000, guid: d774bdc5a89c51d42a6d5ca964538e2f, type: 3}
+  CrescerSound: {fileID: 8300000, guid: 8a7633b9dfc93af45b1f708d6770fa4c, type: 3}
   movementSpeed: 20
+  Altura: 0
   runSpeedMultiplier: 1.5
   jumpForce: 20
   lifeImages:
@@ -3904,14 +3906,17 @@ MonoBehaviour:
   spawnDelaySpaceTrash: 3
   spawnDelayBatides: 3
   spawnDelayVelocidade: 3
+  spawnDelayCrescer: 3
   fallingSpeedBurgers: 3
   fallingSpeedSpaceTrash: 3
   fallingSpeedBatides: 4
   fallingSpeedVelocidade: 2
+  fallingSpeedCrescer: 2
   burgerPrefab: {fileID: 5252746052631252355, guid: a0014d3ec18e8df41884dfe6a187bc3a, type: 3}
   spaceTrashPrefab: {fileID: 2704061412618312811, guid: 32bbd66ed3fb67e4788c1938082ffbdf, type: 3}
   batidesPrefab: {fileID: 3940794224564004530, guid: 1363d9ac966fea84ab059c21b3953e71, type: 3}
   VelocidadePrefab: {fileID: 3940794224564004530, guid: d9ac01910dd7a924293cfad42f9832de, type: 3}
+  CrescerPrefab: {fileID: 3940794224564004530, guid: 45f5c187071b68e4fac77297584389c2, type: 3}
   spawnArea: {fileID: 1054399660}
   shield: {fileID: 2008768227}
   entraceSwitch: {fileID: 1181424694}
@@ -3919,6 +3924,7 @@ MonoBehaviour:
   simultaneousSpaceTrash: 3
   simultaneousBatides: 1
   simultaneousVelocidade: 1
+  simultaneousCrescer: 1
   objectiveText: {fileID: 1036665678}
   hamburgerTarget: 20
 --- !u!23 &1054399664
@@ -4036,14 +4042,17 @@ MonoBehaviour:
   spawnDelaySpaceTrash: 3
   spawnDelayBatides: 3
   spawnDelayVelocidade: 3
+  spawnDelayCrescer: 3
   fallingSpeedBurgers: 3
   fallingSpeedSpaceTrash: 6
   fallingSpeedBatides: 4
   fallingSpeedVelocidade: 2
+  fallingSpeedCrescer: 2
   burgerPrefab: {fileID: 5252746052631252355, guid: a0014d3ec18e8df41884dfe6a187bc3a, type: 3}
   spaceTrashPrefab: {fileID: 2704061412618312811, guid: 32bbd66ed3fb67e4788c1938082ffbdf, type: 3}
   batidesPrefab: {fileID: 3940794224564004530, guid: 1363d9ac966fea84ab059c21b3953e71, type: 3}
   VelocidadePrefab: {fileID: 0}
+  CrescerPrefab: {fileID: 0}
   spawnArea: {fileID: 1076268437}
   shield: {fileID: 0}
   entraceSwitch: {fileID: 0}
@@ -4051,6 +4060,7 @@ MonoBehaviour:
   simultaneousSpaceTrash: 3
   simultaneousBatides: 1
   simultaneousVelocidade: 1
+  simultaneousCrescer: 1
   objectiveText: {fileID: 1036665678}
   hamburgerTarget: 20
 --- !u!23 &1076268440
