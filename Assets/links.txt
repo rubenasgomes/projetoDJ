@@ -1,0 +1,31 @@
+ASSETS/MODELOS/PERSONAGENS
+- enforcer-custom-clean-playermodel (https://sketchfab.com/3d-models/enforcer-custom-clean-playermodel-e9fc523b03f74bc09e04aebb049241c3)
+- Robot_RK11 (https://sketchfab.com/3d-models/robot-rk11-23215f643bf74275bc0442108e58b4bf)
+- Sci-fi Plataforms (https://sketchfab.com/3d-models/sci-fi-platforms-a6e8bb63ff5a41f5a9e1e7b0511cf79a)
+- Snowy Mountain - Terrain (https://sketchfab.com/3d-models/snowy-mountain-terrain-9fa3c56fd32746bcb0e06cd2c4229ca0)
+- FREE Lava Zone Environment (https://sketchfab.com/3d-models/free-lava-zone-environment-37ad172736b9436586fea564f23d10bf)
+- Grassy Mountains with Lakes (https://sketchfab.com/3d-models/grassy-mountains-with-lakes-408364942d794699bbf99aaced81881d)
+- stylized burger Free low-poly 3D model (https://www.cgtrader.com/free-3d-models/food/vegetable/stylized-burger-45d51d8c-5836-4252-8b16-8a2d446cb7a9)
+- Billions stars Skybox HDRI panorama (https://sketchfab.com/3d-models/billions-stars-skybox-hdri-panorama-7e3e8f94810b44dd837bacad6c65b5e8)
+- CLASS-3 FIGHTER SPACESHIP HODBIN - FREE MODEL (https://sketchfab.com/3d-models/class-3-fighter-spaceship-hodbin-free-model-3451df5fb9d34cd98c3f63cfc0321dd3)
+- Intrepid spaceship (https://www.cgtrader.com/items/1902675/download-page)
+- Infográfico futurista (https://br.freepik.com/vetores-gratis/infografico-futurista_7011422.htm#fromView=search&page=2&position=52&uuid=4cb5b59e-b95b-455e-b701-764d0b71144a)
+IMAGENS/HDRIs/TEXTURAS
+SONS/MÚSICAS
+- Cartoon Splat (https://pixabay.com/sound-effects/cartoon-splat-6086/)
+- Brass Fail 1 A (https://pixabay.com/sound-effects/brass-fail-1-a-185074/)
+- Game Start (https://pixabay.com/sound-effects/game-start-6104/)
+FONTES DE LETRA
+- Dendritic Voltage (https://www.1001fonts.com/dendritic-voltage-font.html)
+- Insaniburger (https://www.1001fonts.com/insaniburger-font.html)
+PROGRAMAS/APLICAÇÕES/SITES UTILIZADOS
+- Unity (https://www.blender.org)
+- Mixamo (https://www.mixamo.com/)
+- Blender (https://www.blender.org)
+- Pixabay (https://pixabay.com/)
+- Mixkit (https://mixkit.co/)
+- 1001 Fonts (https://www.1001fonts.com/)
+- cgtrader (https://www.cgtrader.com/)
+- Poly Haven (https://polyhaven.com)
+- Sketchfab (https://sketchfab.com/)
+- Freepik (https://br.freepik.com/)
