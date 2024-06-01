@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     // Começar jogo
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("nivel1");
         PlayerPrefs.SetInt("score", 0);
         Time.timeScale = 1f;
     }
@@ -83,4 +83,35 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void AbrirOpcoes()
+   {
+    SceneManager.LoadScene("options");
+   }
+
+     public void abrirGameplay()
+   {
+    SceneManager.LoadScene("gameplay");
+   }
+
+     public void goBack()
+    {
+        // Implementar a lógica de "Voltar atrás" aqui
+        // Exemplo: Carregar a cena anterior
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void abrirControlls()
+    {
+        // Implementar a lógica de "Voltar atrás" aqui
+        // Exemplo: Carregar a cena anterior
+        SceneManager.LoadScene("controlls");
+    }
+
+    public void goBackSettings()
+    {
+        // Implementar a lógica de "Voltar atrás" aqui
+        // Exemplo: Carregar a cena anterior
+        SceneManager.LoadScene("options");
+    }
+
 }

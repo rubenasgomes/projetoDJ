@@ -160,7 +160,13 @@ public class Jogador : MonoBehaviour
 
     private void ganharVidas()
     {
-        lives++;
-        atualizarVidas();
+    // Verifica se o personagem já possui o número máximo de vidas
+    if (lives >= 3)
+    {
+        return; // Sai da função se o personagem já tiver 3 vidas
     }
+
+    lives++;
+    atualizarVidas();
+}
 }
