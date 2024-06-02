@@ -13,9 +13,14 @@ public class Jogador : MonoBehaviour
     [SerializeField] AudioClip hurtSound; // AudioSource para o som do hurt
     [SerializeField] AudioClip lixoSound; // AudioSource para o som para apanhar lixo
     [SerializeField] AudioClip ganharvidaSound; // AudioSource ao ganhar vida
+    [SerializeField] AudioClip velocidadeSound; // AudioSource ao ganhar vida
+    [SerializeField] AudioClip crescerSound; // AudioSource ao ganhar vida
     private int lives = 3; // Nº total de vidas
     public float movementSpeed = 20f; // Velocidade do movimento
     public float runSpeedMultiplier = 1.5f; // Velocidade de corrida
+    public float Altura = 0f;
+        private bool isPoweredUp = false; // Flag to indicate power-up state
+
     public float jumpForce = 20f; // Força de salto
     private bool isRunning = false; // Booleano de corrida (saber se a personagem está a correr ou não)
     private bool isGrounded = true; // Booleano de salto (saber se a personagem está a saltar ou não)
@@ -117,6 +122,18 @@ public class Jogador : MonoBehaviour
             ganharVidas();
             PlayGanharVidaSoundSound();
         }
+        else if (collision.gameObject.CompareTag("Velocidade"))
+        {
+            Destroy(collision.gameObject);
+            PlayVelocidadeSound();
+            StartCoroutine(IncreaseSpeedForDuration(4f, 10f));
+        }
+        else if (collision.gameObject.CompareTag("Crescer"))
+        {
+            Destroy(collision.gameObject);
+            PlayCrescerSound();
+            StartCoroutine(ChangeScaleForDuration(new Vector3(2f, 2f, 2f), 10f)); // Change scale for 10 seconds
+        }
         else if (collision.gameObject.CompareTag("DeathGround"))
         {
             isGrounded = true;
@@ -133,12 +150,15 @@ public class Jogador : MonoBehaviour
         }
     }
     // Vidas/Health Bar
-    private void perderVidas()
+  private void perderVidas()
     {
-        lives--;
-        if (lives <= 0)
+        if (!isPoweredUp) // Check if the player is not powered up
         {
-            anim.SetTrigger("morrer");
+            lives--;
+            atualizarVidas();
+            if (lives <= 0)
+            {
+              anim.SetTrigger("morrer");
             movementSpeed = 0;
             jumpForce = 0;
             canRotate = false;
@@ -147,19 +167,36 @@ public class Jogador : MonoBehaviour
             fallingBurgers.StopSpawn();
             fallingBurgers.DisappearObjects();
             PlayHurtSound();
-        }
-        else if (lives > 0 && lives < 3)
+            }
+            else if (lives > 0 && lives < 3)
         {
             atualizarVidas();
         }
+        }
     }
-
     private void atualizarVidas()
     {
         for (int i = 0; i < lifeImages.Length; i++)
         {
             lifeImages[i].enabled = i < lives;
         }
+    }
+
+ private IEnumerator ChangeScaleForDuration(Vector3 newScale, float duration)
+    {
+        Vector3 originalScale = new Vector3(0.8f, 0.8f, 0.8f);
+        isPoweredUp = true; // Set power-up state to true
+        transform.localScale = newScale;
+        yield return new WaitForSeconds(duration);
+        transform.localScale = originalScale;
+        isPoweredUp = false; // Reset power-up state
+    }
+
+      private IEnumerator IncreaseSpeedForDuration(float speedMultiplier, float duration)
+    {
+        movementSpeed *= speedMultiplier;
+        yield return new WaitForSeconds(duration);
+        movementSpeed /= speedMultiplier;
     }
 
     private void ganharVidas()
@@ -199,6 +236,21 @@ public class Jogador : MonoBehaviour
         if (ganharvidaSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(ganharvidaSound);
+        }
+    }
+    // funcão para o som ao ganhar vida
+    private void PlayVelocidadeSound()
+    {
+        if (velocidadeSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(velocidadeSound);
+        }
+    }
+    private void PlayCrescerSound()
+    {
+        if (crescerSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(crescerSound);
         }
     }
 }

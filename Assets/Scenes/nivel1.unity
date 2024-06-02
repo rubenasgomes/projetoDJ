@@ -2348,9 +2348,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1040328041}
     - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
+      propertyPath: CrescerPrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 87a4163bbce672e4da8c18f774c111f7, type: 3}
+    - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
       propertyPath: batidesPrefab
       value: 
       objectReference: {fileID: 1828754199460026078, guid: aabd8df42fefe9a4b80782cb1fca4201, type: 3}
+    - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
+      propertyPath: VelocidadePrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 40f4a1602aef35f49ae2fd721f0ee057, type: 3}
     - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
       propertyPath: objectiveManager
       value: 
@@ -6043,9 +6051,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1040328041}
     - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
+      propertyPath: CrescerPrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 87a4163bbce672e4da8c18f774c111f7, type: 3}
+    - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
       propertyPath: batidesPrefab
       value: 
       objectReference: {fileID: 1828754199460026078, guid: aabd8df42fefe9a4b80782cb1fca4201, type: 3}
+    - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
+      propertyPath: VelocidadePrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 40f4a1602aef35f49ae2fd721f0ee057, type: 3}
     - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
       propertyPath: objectiveManager
       value: 
@@ -9070,6 +9086,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: edb9b349c509be248bf441a0c9123ec9, type: 3}
     - target: {fileID: 6621433925959792563, guid: 7ab7d80b0ef247e4aa5c7b603e5806e6, type: 3}
+      propertyPath: crescerSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fa5309416f4f6da44b931f8361dec69f, type: 3}
+    - target: {fileID: 6621433925959792563, guid: 7ab7d80b0ef247e4aa5c7b603e5806e6, type: 3}
       propertyPath: fallingBurgers
       value: 
       objectReference: {fileID: 1076268439}
@@ -9077,6 +9097,10 @@ PrefabInstance:
       propertyPath: ganharvidaSound
       value: 
       objectReference: {fileID: 8300000, guid: c2fafd50f43c227478279f7a0a4e512c, type: 3}
+    - target: {fileID: 6621433925959792563, guid: 7ab7d80b0ef247e4aa5c7b603e5806e6, type: 3}
+      propertyPath: velocidadeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fa5309416f4f6da44b931f8361dec69f, type: 3}
     - target: {fileID: 6621433925959792563, guid: 7ab7d80b0ef247e4aa5c7b603e5806e6, type: 3}
       propertyPath: objectiveManager
       value: 
@@ -9920,9 +9944,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1040328041}
     - target: {fileID: 641080151306010, guid: 6129d31fba5e3844a9f25adca59a3ffc, type: 3}
+      propertyPath: CrescerPrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 87a4163bbce672e4da8c18f774c111f7, type: 3}
+    - target: {fileID: 641080151306010, guid: 6129d31fba5e3844a9f25adca59a3ffc, type: 3}
       propertyPath: batidesPrefab
       value: 
       objectReference: {fileID: 1828754199460026078, guid: aabd8df42fefe9a4b80782cb1fca4201, type: 3}
+    - target: {fileID: 641080151306010, guid: 6129d31fba5e3844a9f25adca59a3ffc, type: 3}
+      propertyPath: VelocidadePrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 40f4a1602aef35f49ae2fd721f0ee057, type: 3}
     - target: {fileID: 641080151306010, guid: 6129d31fba5e3844a9f25adca59a3ffc, type: 3}
       propertyPath: objectiveManager
       value: 
@@ -10124,9 +10156,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1040328041}
     - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
+      propertyPath: CrescerPrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 87a4163bbce672e4da8c18f774c111f7, type: 3}
+    - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
       propertyPath: batidesPrefab
       value: 
       objectReference: {fileID: 1828754199460026078, guid: aabd8df42fefe9a4b80782cb1fca4201, type: 3}
+    - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
+      propertyPath: VelocidadePrefab
+      value: 
+      objectReference: {fileID: 1828754199460026078, guid: 40f4a1602aef35f49ae2fd721f0ee057, type: 3}
     - target: {fileID: 8950119733162069954, guid: ade8975abe4d25242b06d14a414e18ac, type: 3}
       propertyPath: objectiveManager
       value: 
@@ -10225,6 +10265,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1380086144567500573, guid: f053bc4497094e54b94ec1197cd7627f, type: 3}
+      propertyPath: crescerSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fa5309416f4f6da44b931f8361dec69f, type: 3}
+    - target: {fileID: 1380086144567500573, guid: f053bc4497094e54b94ec1197cd7627f, type: 3}
       propertyPath: customGravity
       value: -40
       objectReference: {fileID: 0}
@@ -10236,6 +10280,10 @@ PrefabInstance:
       propertyPath: fallingBurgers
       value: 
       objectReference: {fileID: 1076268439}
+    - target: {fileID: 1380086144567500573, guid: f053bc4497094e54b94ec1197cd7627f, type: 3}
+      propertyPath: velocidadeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fa5309416f4f6da44b931f8361dec69f, type: 3}
     - target: {fileID: 1380086144567500573, guid: f053bc4497094e54b94ec1197cd7627f, type: 3}
       propertyPath: objectiveManager
       value: 
