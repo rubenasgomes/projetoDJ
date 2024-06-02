@@ -12,6 +12,8 @@ TagManager:
   - teste
   - InvisibleWall
   - DeathGround
+  - Crescer
+  - Velocidade
   layers:
   - Default
   - TransparentFX
