@@ -156,7 +156,7 @@ public class FallingBurgers : MonoBehaviour
         }
     }
     // "Spawn" de "batides"/batidos
-    public IEnumerator spawnDelayCrescer()
+    public IEnumerator spawnCrescer()
     {
         yield return new WaitForSeconds(spawnDelayCrescer);
 
