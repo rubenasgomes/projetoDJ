@@ -181,10 +181,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pressione ENTER para come\xE7ar"
+  m_text: Press ENTER to start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b84022eed834fe54b8c3694dc958cede, type: 2}
-  m_sharedMaterial: {fileID: 1972440507269621077, guid: b84022eed834fe54b8c3694dc958cede, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d3523424035cbb44eb956ecc4165d175, type: 2}
+  m_sharedMaterial: {fileID: 8928319089473487216, guid: d3523424035cbb44eb956ecc4165d175, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -13,21 +13,17 @@ public class Jogador : MonoBehaviour
     [SerializeField] AudioClip hurtSound; // AudioSource para o som do hurt
     [SerializeField] AudioClip lixoSound; // AudioSource para o som para apanhar lixo
     [SerializeField] AudioClip ganharvidaSound; // AudioSource ao ganhar vida
-    [SerializeField] AudioClip velocidadeSound; // AudioSource ao ganhar vida
-    [SerializeField] AudioClip crescerSound; // AudioSource ao ganhar vida
     private int lives = 3; // Nº total de vidas
     public float movementSpeed = 20f; // Velocidade do movimento
     public float runSpeedMultiplier = 1.5f; // Velocidade de corrida
-    public float Altura = 0f;
-        private bool isPoweredUp = false; // Flag to indicate power-up state
-
-    public float jumpForce = 20f; // Força de salto
+    public float jumpForce = 25f; // Força de salto aumentada
     private bool isRunning = false; // Booleano de corrida (saber se a personagem está a correr ou não)
     private bool isGrounded = true; // Booleano de salto (saber se a personagem está a saltar ou não)
     public Image[] lifeImages; // Array de vidas
     public GameObject GameOver; // Ecrã de derrota
     public GameObject HUD;
     private bool canRotate = true; // Booleano de rotação (saber se a personagem está a rodar consoante o movimento)
+    public float gravityMultiplier = 4f; // Aumenta a velocidade de queda
 
     void Start()
     {
@@ -35,6 +31,7 @@ public class Jogador : MonoBehaviour
         atualizarVidas();
         GameOver.SetActive(false);
         audioSource = GetComponent<AudioSource>();
+        rb.useGravity = true;
     }
 
     void Update()
@@ -43,6 +40,16 @@ public class Jogador : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+        }
+
+        // desativar o shift enquanto se salta
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
+        {
+            isRunning = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift) && isGrounded)
+        {
+            isRunning = false;
         }
     }
 
@@ -65,7 +72,6 @@ public class Jogador : MonoBehaviour
         }
         else
         {
-            isRunning = Input.GetKey(KeyCode.LeftShift);
             if (canRotate)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
@@ -76,10 +82,13 @@ public class Jogador : MonoBehaviour
             {
                 speed *= runSpeedMultiplier;
             }
-            transform.Translate(movementDirection * Time.deltaTime * speed, Space.World);
+            rb.velocity = new Vector3(movementDirection.x * speed, rb.velocity.y, movementDirection.z * speed);
             anim.SetBool("isMoving", true);
             anim.SetBool("isRunning", isRunning);
         }
+
+        // Aumento de gravidade
+        rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -122,18 +131,6 @@ public class Jogador : MonoBehaviour
             ganharVidas();
             PlayGanharVidaSoundSound();
         }
-        else if (collision.gameObject.CompareTag("Velocidade"))
-        {
-            Destroy(collision.gameObject);
-            PlayVelocidadeSound();
-            StartCoroutine(IncreaseSpeedForDuration(4f, 10f));
-        }
-        else if (collision.gameObject.CompareTag("Crescer"))
-        {
-            Destroy(collision.gameObject);
-            PlayCrescerSound();
-            StartCoroutine(ChangeScaleForDuration(new Vector3(2f, 2f, 2f), 10f)); // Change scale for 10 seconds
-        }
         else if (collision.gameObject.CompareTag("DeathGround"))
         {
             isGrounded = true;
@@ -150,15 +147,12 @@ public class Jogador : MonoBehaviour
         }
     }
     // Vidas/Health Bar
-  private void perderVidas()
+    private void perderVidas()
     {
-        if (!isPoweredUp) // Check if the player is not powered up
+        lives--;
+        if (lives <= 0)
         {
-            lives--;
-            atualizarVidas();
-            if (lives <= 0)
-            {
-              anim.SetTrigger("morrer");
+            anim.SetTrigger("morrer");
             movementSpeed = 0;
             jumpForce = 0;
             canRotate = false;
@@ -167,13 +161,13 @@ public class Jogador : MonoBehaviour
             fallingBurgers.StopSpawn();
             fallingBurgers.DisappearObjects();
             PlayHurtSound();
-            }
-            else if (lives > 0 && lives < 3)
+        }
+        else if (lives > 0 && lives < 3)
         {
             atualizarVidas();
         }
-        }
     }
+
     private void atualizarVidas()
     {
         for (int i = 0; i < lifeImages.Length; i++)
@@ -182,25 +176,13 @@ public class Jogador : MonoBehaviour
         }
     }
 
- private IEnumerator ChangeScaleForDuration(Vector3 newScale, float duration)
-    {
-        Vector3 originalScale = new Vector3(0.8f, 0.8f, 0.8f);
-        isPoweredUp = true; // Set power-up state to true
-        transform.localScale = newScale;
-        yield return new WaitForSeconds(duration);
-        transform.localScale = originalScale;
-        isPoweredUp = false; // Reset power-up state
-    }
-
-      private IEnumerator IncreaseSpeedForDuration(float speedMultiplier, float duration)
-    {
-        movementSpeed *= speedMultiplier;
-        yield return new WaitForSeconds(duration);
-        movementSpeed /= speedMultiplier;
-    }
-
     private void ganharVidas()
     {
+        // verificar se o personagem possui o número máximo de vidas
+        if (lives >= 3)
+        {
+            return; // sai da função se a personagem tiver as 3 vidas
+        }
         lives++;
         atualizarVidas();
     }
@@ -236,21 +218,6 @@ public class Jogador : MonoBehaviour
         if (ganharvidaSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(ganharvidaSound);
-        }
-    }
-    // funcão para o som ao ganhar vida
-    private void PlayVelocidadeSound()
-    {
-        if (velocidadeSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(velocidadeSound);
-        }
-    }
-    private void PlayCrescerSound()
-    {
-        if (crescerSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(crescerSound);
         }
     }
 }
