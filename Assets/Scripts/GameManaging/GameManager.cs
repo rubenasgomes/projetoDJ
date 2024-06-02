@@ -6,14 +6,12 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public GameObject MenuPausa; // Referência ao menu de pausa
-    public GameObject MiniMapHUD; // Referência ao mini mapa
     private bool gameIsPaused = false; // Variável para controlar se o jogo está pausado
 
     void Start()
     {
         // Desativa o menu de pausa e o mini mapa no início do jogo
         MenuPausa.SetActive(false);
-        MiniMapHUD.SetActive(false);
     }
 
     void Update()
