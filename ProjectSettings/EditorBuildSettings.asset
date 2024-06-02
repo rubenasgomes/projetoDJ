@@ -6,21 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartScenePrompt.unity
-    guid: 053f427ff12b25849aab159fef3de2cb
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
-    guid: d1a447d817c9ff64a8c21189306ac678
-  - enabled: 1
-    path: Assets/Scenes/Cutscene.unity
-    guid: 522cb1d512669f641aa11f8a0e9f176c
-  - enabled: 1
-    path: Assets/Scenes/selection.unity
-    guid: 6c8d1542a10c58c4e959dfcd6c45c8af
+    guid: f8c516913759c06459b967ece9259288
   - enabled: 1
     path: Assets/Scenes/nivel1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Scenes/game.unity
-    guid: d4c867b60215b044b8de700122ca6db8
+  - enabled: 1
+    path: Assets/Scenes/controlls.unity
+    guid: eb3d66897ce01054e929ce0b2def8481
+  - enabled: 1
+    path: Assets/Scenes/gameplay.unity
+    guid: 5949278ea40b6eb498889252b9630b9a
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: a4ce409620cf2034682a09228ba1042f
   m_configObjects: {}

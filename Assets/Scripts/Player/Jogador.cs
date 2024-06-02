@@ -5,14 +5,10 @@ using System.Collections;
 public class Jogador : MonoBehaviour
 {
     public FallingBurgers fallingBurgers; // Script "FallingBurgers"
+    public Temporizador temporizador; // Script "Temporizador"
     private Rigidbody rb;
     public Animator anim;
-    private AudioSource audioSource;
-    [SerializeField] AudioClip jumpSound; // AudioSource para o som do salto
-    [SerializeField] AudioClip burgerSound; // AudioSource para o som do burger
-    [SerializeField] AudioClip hurtSound; // AudioSource para o som do hurt
-    [SerializeField] AudioClip lixoSound; // AudioSource para o som para apanhar lixo
-    [SerializeField] AudioClip ganharvidaSound; // AudioSource ao ganhar vida
+    private AudioSource AudioSourceObjects;
     private int lives = 3;
     public float movementSpeed = 20f;
     public float runSpeedMultiplier = 1.5f;
@@ -23,23 +19,15 @@ public class Jogador : MonoBehaviour
     public GameObject GameOver;
     public GameObject HUD;
     private bool canRotate = true;
-    public Objective objectiveManager;
+    public GameObject PlatformShield; // "Escudo" da plataforma
+    private bool canToggle = true;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        AudioSourceObjects = GetComponent<AudioSource>();
         atualizarVidas();
         GameOver.SetActive(false);
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
     }
 
     private void FixedUpdate()
@@ -47,6 +35,12 @@ public class Jogador : MonoBehaviour
         Movimento();
     }
 
+    IEnumerator DisableToggleForDuration(float duration)
+    {
+        canToggle = false;
+        yield return new WaitForSeconds(duration);
+        canToggle = true;
+    }
     private void Movimento()
     {
         float horizontalAxis = Input.GetAxis("Horizontal");
@@ -78,6 +72,15 @@ public class Jogador : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        }
+    }
+
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -94,48 +97,39 @@ public class Jogador : MonoBehaviour
         {
             isGrounded = false;
             anim.SetBool("salto", true);
-            //PlayJumpSound(); // Reproduz o som do salto
         }
     }
-
     // Colisões
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Hamburger"))
         {
             Destroy(collision.gameObject);
-            objectiveManager.CollectHamburger();
-            PlayBurgerSound();
+            fallingBurgers.CollectHamburger();
+            AudioSourceObjects.Play();
         }
         else if (collision.gameObject.CompareTag("Trash"))
         {
             anim.SetTrigger("hit");
             Destroy(collision.gameObject);
             perderVidas();
-            PlayLixoSound();
         }
         else if (collision.gameObject.CompareTag("Batides"))
         {
             Destroy(collision.gameObject);
             ganharVidas();
-            PlayGanharVidaSoundSound();
-        }
-        else if (collision.gameObject.CompareTag("DeathGround"))
-        {
-            isGrounded = true;
-            anim.SetBool("salto", false);
-            anim.SetTrigger("morrer");
-            movementSpeed = 0;
-            jumpForce = 0;
-            canRotate = false;
-            GameOver.SetActive(true);
-            HUD.SetActive(false);
-            fallingBurgers.StopSpawn();
-            fallingBurgers.DisappearObjects();
-            //PlayHurtSound();
         }
     }
-    // Vidas/Health Bar
+    // Triggers
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == PlatformShield)
+        {
+            fallingBurgers.ToggleShield();
+        }
+
+    }
+
     private void perderVidas()
     {
         lives--;
@@ -149,7 +143,6 @@ public class Jogador : MonoBehaviour
             HUD.SetActive(false);
             fallingBurgers.StopSpawn();
             fallingBurgers.DisappearObjects();
-            PlayHurtSound();
         }
         else if (lives > 0 && lives < 3)
         {
@@ -167,50 +160,13 @@ public class Jogador : MonoBehaviour
 
     private void ganharVidas()
     {
-        lives++;
-        atualizarVidas();
+    // Verifica se o personagem já possui o número máximo de vidas
+    if (lives >= 3)
+    {
+        return; // Sai da função se o personagem já tiver 3 vidas
     }
 
-    // FUNÇÕES DOS SONS 
-    // funcão para o som do salto
-    private void PlayJumpSound()
-    {
-        if (jumpSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(jumpSound);
-        }
-    }
-
-    // funcão para o som do burger
-    private void PlayBurgerSound()
-    {
-        if (burgerSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(burgerSound);
-        }
-    }
-    // funcão para o som do Hurt
-    private void PlayHurtSound()
-    {
-        if (hurtSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(hurtSound);
-        }
-    }
-    // funcão para o som ao apanhar o lixo
-    private void PlayLixoSound()
-    {
-        if (lixoSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(lixoSound);
-        }
-    }
-    // funcão para o som ao ganhar vida
-    private void PlayGanharVidaSoundSound()
-    {
-        if (ganharvidaSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(ganharvidaSound);
-        }
-    }
+    lives++;
+    atualizarVidas();
+}
 }
