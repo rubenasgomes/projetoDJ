@@ -4,6 +4,16 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
+    // Seleção de personagens
+    public void SelectPlayer()
+    {
+        SceneManager.LoadScene("selection");
+    }
+    // Cutscene/Vídeo
+    public void GoToCutscene()
+    {
+        SceneManager.LoadScene("Cutscene");
+    }
     // Níveis
     public void StartLvl1()
     {
@@ -27,6 +37,21 @@ public class MainMenu : MonoBehaviour
     public void GoToStore()
     {
         SceneManager.LoadScene("Loja");
+    }
+    // Opções
+    public void GoToOptions()
+    {
+        SceneManager.LoadScene("Options");
+    }
+    // Controlos
+    public void GoToControlls()
+    {
+        SceneManager.LoadScene("controlls");
+    }
+    // Gameplay/Tutorial
+    public void GoToGameplay()
+    {
+        SceneManager.LoadScene("gameplay");
     }
     // Voltar para trás
     public void GoBack()

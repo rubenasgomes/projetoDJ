@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class SpawnSwitch : MonoBehaviour
 {
-    public GameObject TogglePlatforms;
-    //public Animator anim;
-    //private AudioSource audioSource;
-    public float interactionDistance = 3f; // Distance between the player and the switch
+    public GameObject TogglePlatforms; // Plataformas
+    //public Animator anim1;
+    //public Animator anim2;
+    public AudioSource audioSource;
+    public float interactionDistance = 3f; // Distância entre o jogador e o botão
     private Transform playerTransform;
 
     void Start()
@@ -47,15 +48,15 @@ public class SpawnSwitch : MonoBehaviour
             }
         }
 
-        // When pressing "E" near the switch, the platforms will be activated
-        // The player has to be near the switch to activate it
+        // Ao carregar "E" perto do botão com a personagem, as plataformas serão ativadas
         if (Vector3.Distance(playerTransform.position, transform.position) <= interactionDistance)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                TogglePlatforms.SetActive(true); // the platforms are activated
-                                                 //anim.SetTrigger("isPressing"); // the switch pressing animation is displayed
-                                                 //audioSource.Play();
+                TogglePlatforms.SetActive(true); // ativa as plataformas
+                //anim1.SetTrigger("isPressing"); // animação de carregar no botão
+                //anim2.SetTrigger("isPressing"); // animação de carregar no botão
+                audioSource.Play(); // ativa o som de carregar no botão
             }
         }
     }

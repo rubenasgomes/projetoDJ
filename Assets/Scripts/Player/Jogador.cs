@@ -4,26 +4,25 @@ using System.Collections;
 
 public class Jogador : MonoBehaviour
 {
-    public FallingBurgers fallingBurgers; // Script "FallingBurgers"
+    public FallingBurgers fallingBurgers; // script
+    public Objective objectiveManager; // script
     private Rigidbody rb;
     public Animator anim;
     private AudioSource audioSource;
-    [SerializeField] AudioClip jumpSound; // AudioSource para o som do salto
     [SerializeField] AudioClip burgerSound; // AudioSource para o som do burger
     [SerializeField] AudioClip hurtSound; // AudioSource para o som do hurt
     [SerializeField] AudioClip lixoSound; // AudioSource para o som para apanhar lixo
     [SerializeField] AudioClip ganharvidaSound; // AudioSource ao ganhar vida
-    private int lives = 3;
-    public float movementSpeed = 20f;
-    public float runSpeedMultiplier = 1.5f;
-    public float jumpForce = 20f;
-    private bool isRunning = false;
-    private bool isGrounded = true;
-    public Image[] lifeImages;
-    public GameObject GameOver;
+    private int lives = 3; // Nº total de vidas
+    public float movementSpeed = 20f; // Velocidade do movimento
+    public float runSpeedMultiplier = 1.5f; // Velocidade de corrida
+    public float jumpForce = 20f; // Força de salto
+    private bool isRunning = false; // Booleano de corrida (saber se a personagem está a correr ou não)
+    private bool isGrounded = true; // Booleano de salto (saber se a personagem está a saltar ou não)
+    public Image[] lifeImages; // Array de vidas
+    public GameObject GameOver; // Ecrã de derrota
     public GameObject HUD;
-    private bool canRotate = true;
-    public Objective objectiveManager;
+    private bool canRotate = true; // Booleano de rotação (saber se a personagem está a rodar consoante o movimento)
 
     void Start()
     {
@@ -84,7 +83,6 @@ public class Jogador : MonoBehaviour
         {
             isGrounded = true;
             anim.SetBool("salto", false);
-            anim.SetTrigger("cair");
         }
     }
 
@@ -94,7 +92,6 @@ public class Jogador : MonoBehaviour
         {
             isGrounded = false;
             anim.SetBool("salto", true);
-            //PlayJumpSound(); // Reproduz o som do salto
         }
     }
 
@@ -172,15 +169,6 @@ public class Jogador : MonoBehaviour
     }
 
     // FUNÇÕES DOS SONS 
-    // funcão para o som do salto
-    private void PlayJumpSound()
-    {
-        if (jumpSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(jumpSound);
-        }
-    }
-
     // funcão para o som do burger
     private void PlayBurgerSound()
     {

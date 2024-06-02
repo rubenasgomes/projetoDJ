@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     public void QuitToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        PlayerPrefs.SetInt("score", 0);
+        Time.timeScale = 1f;
     }
     // Recomeçar o jogo
     public void RestartGame()
