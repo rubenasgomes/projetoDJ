@@ -15,7 +15,7 @@ public class FallingBurgers : MonoBehaviour
     public float fallingSpeedSpaceTrash = 1f; // Velocidade do lixo espacial
     public float fallingSpeedBatides = 1f; // Velocidade dos "batides"
     public float fallingSpeedVelocidade = 2f; // Velocidade dos "Velocidade"
-    public float fallingSpeedCrescer= 2f; // Velocidade dos "Crescer"
+    public float fallingSpeedCrescer = 2f; // Velocidade dos "Crescer"
 
 
     // Prefabs dos objetos
@@ -141,7 +141,7 @@ public class FallingBurgers : MonoBehaviour
                 float randomZ = Random.Range(-spawnSize.z / 2f, spawnSize.z / 2f);
 
                 Vector3 spawnPosition = spawnArea.transform.position + new Vector3(randomX, 0f, randomZ);
-                GameObject newBatide = Instantiate(batidesPrefab, spawnPosition, Quaternion.identity);
+                GameObject newBatide = Instantiate(VelocidadePrefab, spawnPosition, Quaternion.identity);
 
                 Rigidbody rb = newBatide.GetComponent<Rigidbody>();
                 if (rb == null)
@@ -168,7 +168,7 @@ public class FallingBurgers : MonoBehaviour
                 float randomZ = Random.Range(-spawnSize.z / 2f, spawnSize.z / 2f);
 
                 Vector3 spawnPosition = spawnArea.transform.position + new Vector3(randomX, 0f, randomZ);
-                GameObject newBatide = Instantiate(batidesPrefab, spawnPosition, Quaternion.identity);
+                GameObject newBatide = Instantiate(CrescerPrefab, spawnPosition, Quaternion.identity);
 
                 Rigidbody rb = newBatide.GetComponent<Rigidbody>();
                 if (rb == null)

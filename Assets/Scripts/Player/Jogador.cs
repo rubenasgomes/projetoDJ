@@ -13,17 +13,23 @@ public class Jogador : MonoBehaviour
     [SerializeField] AudioClip hurtSound; // AudioSource para o som do hurt
     [SerializeField] AudioClip lixoSound; // AudioSource para o som para apanhar lixo
     [SerializeField] AudioClip ganharvidaSound; // AudioSource ao ganhar vida
+    [SerializeField] AudioClip velocidadeSound; // AudioSource ao ganhar vida
+    [SerializeField] AudioClip crescerSound; // AudioSource ao ganhar vida
+    public float Altura = 0f; // Altura da personagem quando apanha um "batide" de morango
     private int lives = 3; // Nº total de vidas
     public float movementSpeed = 20f; // Velocidade do movimento
     public float runSpeedMultiplier = 1.5f; // Velocidade de corrida
     public float jumpForce = 25f; // Força de salto aumentada
+    private bool canDoubleJump = false;
     private bool isRunning = false; // Booleano de corrida (saber se a personagem está a correr ou não)
     private bool isGrounded = true; // Booleano de salto (saber se a personagem está a saltar ou não)
     public Image[] lifeImages; // Array de vidas
     public GameObject GameOver; // Ecrã de derrota
     public GameObject HUD;
     private bool canRotate = true; // Booleano de rotação (saber se a personagem está a rodar consoante o movimento)
-    public float gravityMultiplier = 4f; // Aumenta a velocidade de queda
+    private float gravityMultiplier = 4f; // Aumenta a velocidade de queda
+    private bool isPoweredUp = false; // Booleano do powerup de invencibilidade (indica se a personagem o apanhou ou não)
+    private bool isSpeedBoostActive = false; // Booleano para o power-up de velocidade (indica se a personagem a apanhou ou não)
 
     void Start()
     {
@@ -36,10 +42,21 @@ public class Jogador : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // Jumping logic
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            if (isGrounded)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
+                canDoubleJump = true;
+            }
+            else if (canDoubleJump)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); // Reset y velocity
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                canDoubleJump = false;
+            }
         }
 
         // desativar o shift enquanto se salta
@@ -131,6 +148,24 @@ public class Jogador : MonoBehaviour
             ganharVidas();
             PlayGanharVidaSoundSound();
         }
+        else if (collision.gameObject.CompareTag("Velocidade"))
+        {
+            Destroy(collision.gameObject);
+            PlayVelocidadeSound();
+            if (!isSpeedBoostActive) // Check if the speed boost is not active
+            {
+                StartCoroutine(IncreaseSpeedForDuration(2f, 10f));
+            }
+        }
+        else if (collision.gameObject.CompareTag("Crescer"))
+        {
+            Destroy(collision.gameObject);
+            PlayCrescerSound();
+            if (!isPoweredUp) // Check if the speed boost is not active
+            {
+                StartCoroutine(ChangeScaleForDuration(2f, 10f)); // Change scale for 10 seconds
+            }
+        }
         else if (collision.gameObject.CompareTag("DeathGround"))
         {
             isGrounded = true;
@@ -140,31 +175,58 @@ public class Jogador : MonoBehaviour
             jumpForce = 0;
             canRotate = false;
             GameOver.SetActive(true);
+
             HUD.SetActive(false);
             fallingBurgers.StopSpawn();
             fallingBurgers.DisappearObjects();
             //PlayHurtSound();
         }
     }
+    // Crescimento temporária
+    private IEnumerator ChangeScaleForDuration(float scaleMultiplier, float duration)
+    {
+        Vector3 originalScale = transform.localScale; // Store the original scale
+        Vector3 newScale = originalScale * scaleMultiplier; // Calculate the new scale based on the multiplier
+        isPoweredUp = true; // Set power-up state to true
+        transform.localScale = newScale; // Apply the new scale
+        Debug.Log("Scale changed to " + newScale); // Debug log
+        yield return new WaitForSeconds(duration); // Wait for the duration
+        transform.localScale = originalScale; // Revert to the original scale
+        Debug.Log("Scale reverted to " + originalScale); // Debug log
+        isPoweredUp = false; // Reset power-up state
+    }
+    // Velocidade temporária
+    private IEnumerator IncreaseSpeedForDuration(float speedMultiplier, float duration)
+    {
+        isSpeedBoostActive = true;
+        movementSpeed *= speedMultiplier;
+        yield return new WaitForSeconds(duration);
+        movementSpeed /= speedMultiplier;
+        isSpeedBoostActive = false;
+    }
     // Vidas/Health Bar
     private void perderVidas()
     {
-        lives--;
-        if (lives <= 0)
+        if (!isPoweredUp) // Verificar se o jogador tem o powerup de invencibilidade
         {
-            anim.SetTrigger("morrer");
-            movementSpeed = 0;
-            jumpForce = 0;
-            canRotate = false;
-            GameOver.SetActive(true);
-            HUD.SetActive(false);
-            fallingBurgers.StopSpawn();
-            fallingBurgers.DisappearObjects();
-            PlayHurtSound();
-        }
-        else if (lives > 0 && lives < 3)
-        {
+            lives--;
             atualizarVidas();
+            if (lives <= 0)
+            {
+                anim.SetTrigger("morrer");
+                movementSpeed = 0;
+                jumpForce = 0;
+                canRotate = false;
+                GameOver.SetActive(true);
+                HUD.SetActive(false);
+                fallingBurgers.StopSpawn();
+                fallingBurgers.DisappearObjects();
+                PlayHurtSound();
+            }
+            else if (lives > 0 && lives < 3)
+            {
+                atualizarVidas();
+            }
         }
     }
 
@@ -218,6 +280,20 @@ public class Jogador : MonoBehaviour
         if (ganharvidaSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(ganharvidaSound);
+        }
+    }
+    private void PlayVelocidadeSound()
+    {
+        if (velocidadeSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(velocidadeSound);
+        }
+    }
+    private void PlayCrescerSound()
+    {
+        if (crescerSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(crescerSound);
         }
     }
 }

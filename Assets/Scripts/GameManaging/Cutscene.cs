@@ -13,7 +13,6 @@ public class Cutscene : MonoBehaviour
             videoPlayer = GetComponent<VideoPlayer>();
         }
 
-        // Subscribe to the loopPointReached event
         videoPlayer.loopPointReached += OnVideoEnd;
     }
 

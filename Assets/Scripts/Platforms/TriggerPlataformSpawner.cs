@@ -35,6 +35,8 @@ public class TriggerPlataformSpawner : MonoBehaviour
                 fb.StartCoroutine(fb.SpawnBurgers());
                 fb.StartCoroutine(fb.SpawnBatides());
                 fb.StartCoroutine(fb.SpawnSpaceTrash());
+                fb.StartCoroutine(fb.SpawnVelocidade());
+                fb.StartCoroutine(fb.spawnCrescer());
             }
             // Começar o temporizador
             StartCoroutine(StartTimer());
